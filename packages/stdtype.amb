@@ -1,0 +1,11 @@
+
+/*
+IR {"
+%String = type {
+    i8*,     ; 0: buffer; pointer to the character buffer
+    i32,     ; 1: length; the number of chars in the buffer
+    i32,     ; 2: maxlen; the maximum number of chars in the buffer
+    i32      ; 3: factor; the number of chars to preallocate when growing
+}
+"}
+*/

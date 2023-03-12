@@ -1,0 +1,15 @@
+/*
+
+IR {" declare i32 @printf(i8*, ...) nounwind "};
+
+fun i32 println(str x) {
+ print(str x);
+ return i32 0;
+};
+
+*/
+
+fun println(x) {
+  print(x);
+  return x;
+}

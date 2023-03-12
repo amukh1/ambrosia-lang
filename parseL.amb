@@ -1,0 +1,21 @@
+import stdio;
+
+fun main(x) {
+  println("Hello World!");
+  let re = differ(square,3);
+  println("derivative at " .. 3 .. ": " .. re);
+  return 0;
+};
+
+fun square(x) {
+  return !x*x!;
+};
+
+
+fun differ(fn,a) {
+let h = 0.001;
+return !(fn(a+h)-fn(a))/h!;
+};
+
+
+main(0);

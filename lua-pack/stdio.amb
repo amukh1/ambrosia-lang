@@ -1,3 +1,0 @@
-fun println(x) {
- print("Ambrosia-Lua stdio: " .. x);
-};

@@ -67,16 +67,35 @@ import execute from 'ambrosia-lang';
 ```js
 execute(`
 import stdio;
-println("Hello World!");
-`);
+
+fun main(x) {
+  return 0;
+};
+`, 'transpile');
 ```
 
 ```sh
 $ Ambrosia-Lua: Hello World!
 ```
 
-### Compiling to Assembly and executing
-[Unfinished]
+### Compiling to LLVM and executing
+
+> **Warning**
+> The LLVM Compiler is not yet completely implemented, and the version of the language that can be compiled depends heavily on the programming expicitly giving everything types.
+
+```js
+console.log(execute(`
+import stdio;
+
+fun i32 main(i32 argc, i8** argv) {
+  return i32 0;
+};
+`, 'compile'));
+```
+
+```sh
+$ [LLVM IR]
+```
 
 ### The language
 
@@ -100,9 +119,7 @@ println(a);
 ## Variables:
 ```amb
 let a = 1;
-let b = 2;
-let c = a + b;
-println(c);
+println(a);
 ```
 
 ## If statements:

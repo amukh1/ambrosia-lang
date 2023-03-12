@@ -1,6 +1,7 @@
-import fs from 'fs'
 import parse from './parser.js'
 import Lexer from './tokenizer.js'
+import fs from 'fs'
+
 
 export default function transpile(parsee) {
   let final = []
@@ -16,8 +17,8 @@ export default function transpile(parsee) {
     } else if (x.type == 'exp') {
       final.push(expression(x))
     } else if (x.type == 'luaExp') {
-      final.push(x.data.value.slice(1,-1))
-    } else if(x.type == 'import') {
+      final.push(x.data.value.slice(1, -1))
+    } else if (x.type == 'import') {
       let lexer = new Lexer(importst(x))
       final.push(transpile(parse(lexer.Tokenize())))
     }
@@ -27,18 +28,19 @@ export default function transpile(parsee) {
 
 function func(parsee) {
   let args = []
+  // console.log(parsee.params)
   parsee.params.forEach((x) => {
     args.push(x.value)
   })
   return `
-  function ${parsee.name.value}(${args.join('')}) 
+  function ${parsee.name.value}(${args.join(',')}) 
     ${transpile(parsee.body)}
   end
   `
 }
 
 function importst(parsee) {
-  let p = fs.readFileSync(`./lua-pack/${parsee.value}.amb`, 'utf-8')
+  let p = fs.readFileSync(`./packages/${parsee.value}.amb`, 'utf-8')
   return p
 }
 
@@ -51,7 +53,14 @@ function redec(parsee) {
 }
 
 function funcCALL(parsee) {
-  return `${parsee.value.value}(${transpile(parsee.data)})`
+  let p = []
+  // console.log('parseedata', parsee.data)
+  parsee.data.forEach((beh) => {
+    // console.log(beh)
+    p.push((beh.value))
+  })
+  // console.log('p',p)
+  return `${parsee.value.value}(${p.join(' ')})`
 }
 
 function expression(parsee) {
@@ -70,8 +79,8 @@ function expression(parsee) {
   // } else if(parsee.data[])
 
   let eee = []
-    parsee.data.forEach((y) => {
-      eee.push(y.value)
-    })
-    return eee.join(" ")
+  parsee.data.forEach((y) => {
+    eee.push(y.value)
+  })
+  return eee.join(" ")
 }

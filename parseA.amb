@@ -1,0 +1,8 @@
+import stdtype;
+import stdio;
+
+fun i32 main(i32 argc, i8** argv) {
+IR {' @.textstr = internal constant [20 x i8] c"Argument count: %d\0A\00" '}
+  return i32 0;
+};
+
